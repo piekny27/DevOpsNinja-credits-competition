@@ -20,3 +20,9 @@ cd cicd/
 ```shell
 ./deployment.sh
 ```
+Jeśli wystąpi problem z dosowym endlinem w skryptach zainstaluj <kbd>dos2unix</kbd> a potem:
+
+```shell
+dos2unix setup.sh  
+```
+  
