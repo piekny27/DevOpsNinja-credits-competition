@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    type: application
+    app: credits-competition-web
+  name: credits-competition-web
+  namespace: credits-competition
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: credits-competition-web
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        type: application
+        app: credits-competition-web
+    spec:
+      containers:
+        - name: credits-competition-flask-web
+          image: credits-competition-web:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status: {}

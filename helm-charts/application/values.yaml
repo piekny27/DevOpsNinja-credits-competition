@@ -1,0 +1,4 @@
+database:
+  url: jdbc:postgresql://credits-competition-postgresql:5432/postgres
+  user: postgres
+  password: postgres

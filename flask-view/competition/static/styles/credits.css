@@ -1,0 +1,117 @@
+.container-fluid {
+  max-width: 1200px;
+  margin: 0px auto;
+}
+
+.column {
+  float: left;
+  width: 33.33%;
+  padding: 0 2px;
+}
+
+.row {
+  margin: 0 0;
+  min-height: 100vh;
+}
+
+.list-group-item{
+  background-color: transparent;
+  border-color: #26a6a6;
+}
+
+.card-hero {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.card {
+  text-align: center;
+  border-color: transparent;
+  background-color: transparent;
+  border-radius: 0px;
+  cursor: pointer;
+}
+
+.content{
+  height: 100%;
+  font-size:15px;
+  padding:20px 0px;
+  font-family: 'Lato', sans-serif;
+}
+.content-left {
+  width: 90%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+  margin-left: 8%;
+}
+
+.back-left {
+  display:flex; 
+  align-items:center; 
+  justify-content: center;
+  padding: 10px;
+  position: absolute;
+  width: 91.5%;
+  height: 92.5%;
+  background-color: #f1f1f1e6;
+  transition: 1s;
+}
+
+.from-left {
+  top: 3.5%;
+  left: -100%;
+}
+
+.card:hover .content-left .from-left {
+  left: 0%;
+}
+
+.content-right {
+  width: 92%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+  margin-left: -2%;
+}
+
+.back-right {
+  display:flex; 
+  align-items:center; 
+  justify-content: center;
+  padding: 10px;
+  position: absolute;
+  width: 91.5%;
+  height: 95%;
+  background-color: #f1f1f1e6;
+  transition: 1s;
+}
+
+.from-right {
+  top: 2.5%;
+  right: -100%;
+}
+
+.card:hover .content-right .from-right {
+  right: 0%;
+}
+
+.svg-shadow {
+  -webkit-filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, .7));
+  filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, .7));
+}
+
+@media screen and (max-width: 700px) {
+
+  .container {
+    width: 100%;
+  }
+
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}

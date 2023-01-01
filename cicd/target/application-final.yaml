@@ -1,0 +1,149 @@
+---
+# Source: credits-competition/templates/view/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    type: application
+    app: credits-competition-view
+  name: credits-competition-view
+  namespace: credits-competition
+spec:
+  ports:
+  - name: 80-80
+    port: 80
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: credits-competition-view
+  type: ClusterIP
+status:
+  loadBalancer: {}
+---
+# Source: credits-competition/templates/web/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    type: application
+    app: credits-competition-web
+  name: credits-competition-web
+  namespace: credits-competition
+spec:
+  ports:
+  - name: 8080-8080
+    port: 8080
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: credits-competition-web
+  type: ClusterIP
+status:
+  loadBalancer: {}
+---
+# Source: credits-competition/templates/view/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    type: application
+    app: credits-competition-view
+  name: credits-competition-view
+  namespace: credits-competition
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: credits-competition-view
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        type: application
+        app: credits-competition-view
+    spec:
+      containers:
+        - name: credits-competition-flask-view
+          image: credits-competition-view:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status: {}
+---
+# Source: credits-competition/templates/web/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    type: application
+    app: credits-competition-web
+  name: credits-competition-web
+  namespace: credits-competition
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: credits-competition-web
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        type: application
+        app: credits-competition-web
+    spec:
+      containers:
+        - name: credits-competition-flask-web
+          image: credits-competition-web:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status: {}
+---
+# Source: credits-competition/templates/ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  labels:
+    type: application
+  name: credits-competition-ingress
+  namespace: credits-competition
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: credits-competition-web
+            port:
+              number: 8080
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: credits-competition-view
+            port:
+              number: 80

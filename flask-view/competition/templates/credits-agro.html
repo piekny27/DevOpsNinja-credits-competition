@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block styles %}
+<link rel="stylesheet" href="/static/styles/credits-agro.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+{% endblock %}
+
+{% block title %}
+Kredyt AGRO
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mt-5 mb-4">
+            <div class="card mb-4">
+                <div class="card-header py-3">
+                    <h5 class="mb-0">Kredyt AGRO</h5>
+                </div>
+                <div class="card-body">
+                    <form name="form" action="" method="post">
+                        {{ form.hidden_tag() }}
+                        <div class="form-outline mb-4">
+                            {{ form.fullname(class_="form-control") }}
+                            {{ form.fullname.label }}
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            {{ form.conclusionDate(class_="form-control") }}
+                            {{ form.conclusionDate.label }}
+                        </div>
+
+                        <hr class="my-4" />
+
+                        <div class="form-outline mb-4 p-3 rounded" style="background-color: #f8f9fa">
+                            {{ form.conclusionPeriod.label }}
+                            {{ form.conclusionPeriod(class_="form-range slider", oninput="this.form.conclusionPeriodInput.value=this.value") }}   
+                            <div class="input-group col-sm-5">
+                                <input class="form-control" type="number" name="conclusionPeriodInput" aria-describedby="conclusionPeriodSpan" min="1" max="24" oninput="this.form.conclusionPeriod.value=this.value" />  
+                                <span class="input-group-text" id="conclusionPeriodSpan">miesięcy</span>
+                            </div>
+                        </div>
+
+                        <div class="form-outline mb-4 p-3 rounded" style="background-color: #f8f9fa">
+                            {{ form.loanAmount.label }}
+                            {{ form.loanAmount(class_="form-range slider", oninput="this.form.loanAmountInput.value=this.value") }}   
+                            <div class="input-group col-sm-5">
+                                <input class="form-control" type="number" value="{{form.loanAmount.data}}" name="loanAmountInput" aria-describedby="loanAmountSpan" min="500" max="150000" step="any" oninput="this.form.loanAmount.value=this.value" />  
+                                <span class="input-group-text" id="loanAmountSpan">PLN</span>
+                            </div>
+                        </div>
+
+                        <hr class="my-4" />
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="input-group col-sm-5">
+                                    {{ form.interestRate(class_="form-control") }} 
+                                    <span class="input-group-text" id="interestRateSpan">%</span>
+                                </div>
+                                {{ form.interestRate.label }}
+                            </div>
+                            <div class="col">
+                                {{ form.repaymentScheduleType(class_="form-control") }}
+                                {{ form.repaymentScheduleType.label }}
+                            </div>
+                          </div>
+
+                        <hr class="my-4" />
+
+                        <div class="d-flex btn-group" role="group">
+                            {{ form.submitBtn(class_="btn btn-primary btn-lg btn-block") }}
+                            <input type="button" class="btn btn-primary btn-lg btn-block" value="Wróć" onclick="location.href='{{url_for('credits_page')}}'">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mt-5 mb-4">
+            <div class="card mb-4">
+                <div class="card-header py-3">
+                    <h5 class="mb-0">Podsumowanie</h5>
+                </div>
+                <div class="card-body">
+                    {% if data is defined %}
+                        {% with data=data %}
+                            {% include "/summaryWidget.html" %}
+                        {% endwith %}
+                    {% else %}
+                    Wypełnij formularz na lewo i naciśnij "Pokaż podsumowanie".
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/scripts/credits-agro.js"></script>
+{% endblock %}

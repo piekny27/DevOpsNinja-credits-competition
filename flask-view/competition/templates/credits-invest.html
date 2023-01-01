@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block styles %}
+<link rel="stylesheet" href="/static/styles/credits-invest.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+{% endblock %}
+
+{% block title %}
+Kredyt Inwestycyjny
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <form name="form" action="" method="post">
+        {{ form.hidden_tag() }}
+        <div class="row">
+            <div class="col-md-6 mt-5 mb-4">
+                <div class="card mb-4">
+                    <div class="card-header py-3">
+                        <h5 class="mb-0">Kredyt Inwestycyjny</h5>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="form-outline mb-4">
+                            {{ form.fullname(class_="form-control") }}
+                            {{ form.fullname.label }}
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            {{ form.conclusionDate(class_="form-control") }}
+                            {{ form.conclusionDate.label }}
+                        </div>
+
+                        <hr class="my-4" />
+
+                        <div class="form-outline mb-4 p-3 rounded" style="background-color: #f8f9fa">
+                            {{ form.conclusionPeriod.label }}
+                            {{ form.conclusionPeriod(class_="form-range slider",
+                            oninput="this.form.conclusionPeriodInput.value=this.value") }}
+                            <div class="input-group col-sm-5">
+                                <input class="form-control" type="number"
+                                    name="conclusionPeriodInput" aria-describedby="conclusionPeriodSpan" min="1"
+                                    max="144" oninput="this.form.conclusionPeriod.value=this.value" />
+                                <span class="input-group-text" id="conclusionPeriodSpan">miesięcy</span>
+                            </div>
+                        </div>
+
+                        <div class="form-outline mb-4 p-3 rounded" style="background-color: #f8f9fa">
+                            {{ form.loanAmount.label }}
+                            {{ form.loanAmount(class_="form-range slider",
+                            oninput="this.form.loanAmountInput.value=this.value") }}
+                            <div class="input-group col-sm-5">
+                                <input class="form-control" type="number"
+                                    name="loanAmountInput" aria-describedby="loanAmountSpan" min="500" max="15000000"
+                                    step="any" oninput="this.form.loanAmount.value=this.value" />
+                                <span class="input-group-text" id="loanAmountSpan">PLN</span>
+                            </div>
+                        </div>
+
+                        <div class="form-outline mb-4 p-3 rounded" style="background-color: #f8f9fa">
+                            {{ form.investmentValue.label }}
+                            {{ form.investmentValue(class_="form-range slider", oninput="this.form.investmentValueInput.value=this.value") }}
+                            <div class="input-group col-sm-5">
+                                <input class="form-control" type="number"
+                                    name="investmentValueInput" aria-describedby="investmentValueSpan" min="0"
+                                    max="999999999.99" step="any" oninput="this.form.investmentValue.value=this.value" />
+                                <span class="input-group-text" id="investmentValueSpan">PLN</span>
+                            </div>
+                        </div>
+
+                        <div class="form-outline p-3 rounded" style="background-color: #f8f9fa">
+                            {{ form.ownContribution.label }}
+                            {{ form.ownContribution(class_="form-range slider",
+                            oninput="this.form.ownContributionInput.value=this.value") }}
+                            <div class="input-group col-sm-5">
+                                <input class="form-control" type="number"
+                                    name="ownContributionInput" aria-describedby="ownContributionSpan" min="0"
+                                    max="999999999.99" step="any" oninput="this.form.ownContribution.value=this.value" />
+                                <span class="input-group-text" id="ownContributionSpan">PLN</span>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mt-5 mb-4">
+                <div class="card mb-4">
+                    <div class="card-header py-3">
+                        <h5 class="mb-0">&nbsp;</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <div class="input-group col-sm-5">
+                                    {{ form.interestRate(class_="form-control") }}
+                                    <span class="input-group-text" id="interestRateSpan">%</span>
+                                </div>
+                                {{ form.interestRate.label }}
+                            </div>
+                            <div class="col">
+                                <div class="input-group col-sm-5">
+                                    {{ form.commission(class_="form-control") }}
+                                    <span class="input-group-text" id="commissionSpan">%</span>
+                                </div>
+                                {{ form.commission.label }}
+                            </div>
+                        </div>
+
+                        <div class="form-outline mb-4 mt-4">
+                            {{ form.repaymentScheduleType(class_="form-control") }}
+                            {{ form.repaymentScheduleType.label }}
+                        </div>
+
+                        <hr class="my-4" />
+
+                        <div class="d-flex btn-group" role="group">
+                            {{ form.submitBtn(class_="btn btn-primary btn-lg btn-block") }}
+                            <input type="button" class="btn btn-primary btn-lg btn-block" value="Wróć"
+                                onclick="location.href='{{url_for('credits_page')}}'">
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-4">
+                    <div class="card-body">
+                        {% if data is defined %}
+                        {% with data=data %}
+                        {% include "/summaryWidget.html" %}
+                        {% endwith %}
+                        {% else %}
+                        Wypełnij formularz i naciśnij "Pokaż podsumowanie".
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/scripts/credits-invest.js"></script>
+{% endblock %}

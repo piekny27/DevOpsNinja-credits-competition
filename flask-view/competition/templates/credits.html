@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block styles %}
+<link rel="stylesheet" href="/static/styles/credits.css">
+{% endblock %}
+
+{% block title %}
+Wybierz ofertę
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row align-items-center">
+        <div class="column" onclick="window.location.href='{{ url_for('agro_page') }}';">
+            <div class="card">
+                <svg class="svg-shadow" id="agro-tile" viewBox="0 0 580 830"></svg>
+                <div class="content content-left">
+                    <div class="back-left from-left">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Na wydatki związane z Twoją działalnością</li>
+                            <li class="list-group-item">Nawet do 150 000 zł</li>
+                            <li class="list-group-item">Do 2 lat na spłatę kredytu</li>
+                            <li class="list-group-item">Bez biznesplanu</li>
+                            <li class="list-group-item">Bez odwiedzania placówki banku</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="card-hero">
+                <svg id="hero" viewBox="0 0 580 830"></svg>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="card" onclick="window.location.href='{{ url_for('invest_page') }}';">
+                <svg class="svg-shadow" id="invest-tile" viewBox="0 0 580 830"></svg>
+                <div class="content content-right">
+                    <div class="back-right from-right">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Nawet do 100% wartości inwestycji</li>
+                            <li class="list-group-item">Do 12 lat na spłatę kredytu</li>
+                            <li class="list-group-item">Niskie koszty</li>
+                            <li class="list-group-item">Bez odwiedzania placówki banku</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.5.1/snap.svg-min.js"></script>
+<script src="/static/scripts/credits.js"></script>
+{% endblock %}

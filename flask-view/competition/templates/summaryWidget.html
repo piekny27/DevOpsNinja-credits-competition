@@ -1,0 +1,36 @@
+<div style="margin-top: 20px;"></div>
+{% if data.creditType == "invest" %}
+<h1 class="text-center display-6" style="color: #007d8f;">Podsumowanie kredytu inwestycyjnego.</h1>
+{% elif data.creditType == "agro" %}
+<h1 class="text-center display-6" style="color: #007d8f;">Podsumowanie pożyczki AGRO.</h1>
+{% endif %}
+<hr style="border-top: 5px dotted #b4b4b4; background-color: #fff;" />
+<div style="margin-top: 50px;"></div>
+<div class="row row-cols-2">
+  <div class="col green">Imię i nazwisko klienta / nazwa firmy:</div>
+  <div class="col">{{ data.clientData.fullname}}</div>
+  <div class="col green">Data zawarcia umowy:</div>
+  <div class="col">{{ data.conclusionDate}}</div>
+  <div class="col green">Okres finansowania:</div>
+  <div class="col">{{ data.conclusionPeriod}} miesięcy</div>
+  {% if data.creditType == "invest" %}
+  <div class="col green">Wartość inwestycji:</div>
+  <div class="col">{{ data.investmentValue}} PLN</div>
+  <div class="col green">Wkład własny:</div>
+  <div class="col">{{ data.ownContribution}} PLN</div>
+  <div class="col green">Prowizja:</div>
+  <div class="col">{{ data.commission}} %</div>
+  {% endif %}
+  <div class="col green">Kwota kredytu:</div>
+  <div class="col">{{ data.creditData.loanAmount}} PLN</div>
+  <div class="col green">Oprocentowanie kredytu:</div>
+  <div class="col">{{ data.creditData.interestRate}} %</div>
+  <div class="col green">Typ harmonogramu spłat:</div>
+  <div class="col">{{ data.repaymentScheduleType}}</div>
+</div>
+
+<div style="margin-top: 50px;"></div>
+<hr style="border-top: 5px dotted #b4b4b4; background-color: #fff;" />
+<div class="text-center">
+  <a href="{{url_for('genPDF_page', type=data.creditType, id= data.id)}}" target="_blank" class="btn btn-primary" style="max-width:250px;">Pobierz harmonogram PDF</a>
+</div>
